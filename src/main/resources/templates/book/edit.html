@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book | Edit</title>
+    <style>
+        .mt-16 {
+            margin-top: 16px;
+        }
+
+        .error {
+            margin: 4px 0 0 104px;
+            font-size: 14px;
+            color: #dc4a38;
+        }
+
+        .label_left {
+            display: inline-block;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin: 8px 0;">
+    <a th:href="@{'/book/list'}">List Book</a>
+</div>
+<form th:object="${book}" th:action="@{/book/edit/{id}(id=${book.id})}" method="post">
+    <div class="mt-16">
+        <label class="label_left" for="name">Name</label>
+        <input id="name" th:field="*{name}" type="text">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+    <div class="mt-16">
+        <label class="label_left" for="price">Price</label>
+        <input id="price" th:field="*{price}" type="text">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+
+    <div class="mt-16">
+        <label class="label_left" for="quantity">Quantity</label>
+        <input id="quantity" th:field="*{quantity}" type="text">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+
+    <div class="mt-16">
+        <label class="label_left" for="author">Author</label>
+        <select id="author" th:field="*{authorId}">
+            <option th:value="0" >Select an author</option>
+            <option th:each="author: ${authors}"
+                    th:text="${author.name + ' - ' + author.email}"
+                    th:value="${author.id}"></option>
+        </select>
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></p>
+
+    <div class="mt-16"><input type="submit" value="Update"></div>
+</form>
+</body>
+</html>

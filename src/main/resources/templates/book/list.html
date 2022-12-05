@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book | List</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin: 8px 0;">
+    <a th:href="@{'/book/add'}">Add Book</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Author</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.quantity}"></td>
+        <td th:text="${book.author.name}"></td>
+        <td>
+            <a th:href="@{'/book/edit/' + ${book.id}}">Edit</a>
+            <a th:href="@{'/book/delete/' + ${book.id}}" onclick="return deleteBook(this);">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script>
+
+    function deleteBook(ele) {
+        if (confirm("Do you want delete this book?")) {
+            location.href = ele.href;
+        }
+        return false;
+    }
+
+</script>
+</body>
+</html>

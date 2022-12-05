@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Author | Add</title>
+    <style>
+        .mt-16 {
+            margin-top: 16px;
+        }
+
+        .ml-16 {
+            margin-left: 16px;
+        }
+
+        .error {
+            margin: 4px 0 0 104px;
+            font-size: 14px;
+            color: #dc4a38;
+        }
+
+        .label_left {
+            display: inline-block;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin: 8px 0;">
+    <a th:href="@{'/author/list'}">List Author</a>
+</div>
+<form th:object="${author}" th:action="@{/author/add}" method="post">
+    <div class="mt-16">
+        <label class="label_left" for="name">Name&nbsp;&nbsp;</label>
+        <input id="name" th:field="*{name}" type="text">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <div class="mt-16">
+        <label class="label_left" for="email">Email&nbsp;&nbsp;</label>
+        <input id="email" th:field="*{email}" type="text">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    <div class="mt-16" style="display:flex; align-items: center;">
+        <label class="label_left">Gender</label>
+        <label for="rb_male" style="margin-left: 4px;">Male</label>
+        <input id="rb_male" th:field="*{gender}" type="radio" value="MALE">
+        <label for="rb_female" class="ml-16">Female</label>
+        <input id="rb_female" th:field="*{gender}" type="radio" value="FEMALE">
+        <label for="rb_other" class="ml-16">Other</label>
+        <input id="rb_other" th:field="*{gender}" type="radio" value="OTHER">
+    </div>
+    <p class="error" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
+    <div class="mt-16"><input type="submit" value="Create"></div>
+</form>
+</body>
+</html>
